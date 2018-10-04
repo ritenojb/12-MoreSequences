@@ -426,7 +426,7 @@ def polygon(window, circle, number_of_segments, color, thickness):
       :type thickness:          int
     """
     # ------------------------------------------------------------------
-    # TODO: 8. Implement and test this function.
+    # DONE: 8. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     #
     # IMPLEMENTATION REQUIREMENT:
@@ -436,15 +436,16 @@ def polygon(window, circle, number_of_segments, color, thickness):
     # ------------------------------------------------------------------
     circle.attach_to(window)
     points = generate_points_on_circle(circle, number_of_segments)
+    points.append(points[0])
 
-    for k in range(len(points)):
-
-        line = rg.Line(points[k], points[k+1])
-        if(k>=len(points)-1):
-            line.end = points[0]
+    for k in range(len(points)-1, -1, -1):
+        start = rg.Point(points[k].x, points[k].y)
+        end = rg.Point(points[k-1].x, points[k-1].y)
+        line = rg.Line(start, end)
         line.color = color
         line.thickness = thickness
         line.attach_to(window)
+
         window.render()
 
 
