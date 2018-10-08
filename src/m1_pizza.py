@@ -31,7 +31,7 @@ def main():
     run_test_draw_points_on_circle()
     run_test_pizza()
     run_test_polygon()
-    # run_test_fancy_polygon()
+    run_test_fancy_polygon()
 
 
 def run_test_generate_points_on_circle():
@@ -452,7 +452,7 @@ def polygon(window, circle, number_of_segments, color, thickness):
 def run_test_fancy_polygon():
     """ Tests the   fancy_polygon   function. """
     # ------------------------------------------------------------------
-    # TODO: 9. Implement this TEST function.
+    # DONE: 9. Implement this TEST function.
     #   It TESTS the   fancy_polygon   function defined below.
     #   Include at least ** 1 ** ADDITIONAL test (that YOU write).
     #
@@ -487,6 +487,7 @@ def run_test_fancy_polygon():
     fancy_polygon(window, circle, 20, 7, 'lime green', 5)
     window.close_on_mouse_click()
 
+
     # ------------------------------------------------------------------
     # Test 4:  (YOU write THIS test).
     #   If you wish, try even more tests to get some really cool
@@ -497,7 +498,14 @@ def run_test_fancy_polygon():
     #   For all these, filling the circles with one color and using
     #   a contrasting color for the lines makes them especially pretty.
     # ------------------------------------------------------------------
+    # Test 4 (on another window):
+    title = 'FANCY POLYGON test 4'
+    window = rg.RoseWindow(480, 350, title)
 
+    circle = rg.Circle(rg.Point(250, 150), 200)
+    circle.fill_color = 'red'
+    fancy_polygon(window, circle, 10, 3, 'orange', 5)
+    window.close_on_mouse_click()
 
 def fancy_polygon(window, circle, number_of_lines, hops_to_next_point, color, thickness):
     """
@@ -557,7 +565,7 @@ def fancy_polygon(window, circle, number_of_lines, hops_to_next_point, color, th
       :type thickness:       int
     """
     # ------------------------------------------------------------------
-    # TODO: 10. Implement and test this function.
+    # DONE: 10. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     #
     # IMPLEMENTATION REQUIREMENT:
@@ -570,7 +578,18 @@ def fancy_polygon(window, circle, number_of_lines, hops_to_next_point, color, th
     #       appropriately.  ASK YOUR INSTRUCTOR FOR AN EXAMPLE.
     ####################################################################
     # ------------------------------------------------------------------
+    circle.attach_to(window)
+    points = generate_points_on_circle(circle, number_of_lines)
 
+    for k in range(len(points)-1, -1, -1):
+        start = rg.Point(points[k].x, points[k].y)
+        end = rg.Point(points[k-hops_to_next_point].x, points[k-hops_to_next_point].y)
+        line = rg.Line(start, end)
+        line.color = color
+        line.thickness = thickness
+        line.attach_to(window)
+
+        window.render()
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
